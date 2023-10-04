@@ -107,6 +107,9 @@ namespace osu.Game.Rulesets.Catch.Difficulty.Skills
             if (catchCurrent.LastObject.HyperDash && lastHyperDash && !isDirectionChange)
                 movementAddition *= 0.4;
 
+            // Buzz slider fix
+            if (isDirectionChange && lastIsDirectionChange && Math.Abs(distanceMoved) == Math.Abs(lastDistanceMoved) && Math.Abs(distanceMoved) <= HalfCatcherWidth)
+                movementAddition *= Math.Pow((Math.Min(catchCurrent.StrainTime, 120) / 120), 2);
 
             lastPlayerPosition = playerPosition;
             lastDistanceMoved = distanceMoved;
