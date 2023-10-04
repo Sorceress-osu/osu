@@ -45,18 +45,19 @@ namespace osu.Game.Rulesets.Catch.Difficulty
                 (numTotalHits > 2500 ? Math.Log10(numTotalHits / 2500.0) * 0.475 : 0.0);
             value *= lengthBonus;
 
-            value *= Math.Pow(0.97, misses);
+            // Penalize misses exponentially
+            value *= Math.Pow(0.96, misses);
 
             // Combo scaling
             if (catchAttributes.MaxCombo > 0)
-                value *= Math.Min(Math.Pow(score.MaxCombo, 0.8) / Math.Pow(catchAttributes.MaxCombo, 0.8), 1.0);
+                value *= Math.Min(Math.Pow(score.MaxCombo, 0.42) / Math.Pow(catchAttributes.MaxCombo, 0.42), 1.0);
 
             double approachRate = catchAttributes.ApproachRate;
             double approachRateFactor = 1.0;
             if (approachRate > 9.0)
                 approachRateFactor += 0.1 * (approachRate - 9.0); // 10% for each AR above 9
             if (approachRate > 10.0)
-                approachRateFactor += 0.1 * (approachRate - 10.0); // Additional 10% at AR 11, 30% total
+                approachRateFactor += 0.3 * (approachRate - 10.0); // Additional 30% at AR 11, 50% total
             else if (approachRate < 8.0)
                 approachRateFactor += 0.025 * (8.0 - approachRate); // 2.5% for each AR below 8
 
@@ -74,10 +75,11 @@ namespace osu.Game.Rulesets.Catch.Difficulty
             if (score.Mods.Any(m => m is ModFlashlight))
                 value *= 1.35 * lengthBonus;
 
-            value *= Math.Pow(accuracy(), 5.5);
+            // Scale the aim value with accuracy _slightly_
+            value *= Math.Pow(accuracy(), 5.7);
 
             if (score.Mods.Any(m => m is ModNoFail))
-                value *= 0.90;
+                value *= Math.Max(0.90, 1.0 - 0.02 * misses);
 
             return new CatchPerformanceAttributes
             {
