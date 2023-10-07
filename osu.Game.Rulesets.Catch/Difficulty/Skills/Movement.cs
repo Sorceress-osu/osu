@@ -105,7 +105,7 @@ namespace osu.Game.Rulesets.Catch.Difficulty.Skills
 
             // Consecutive hyperdashes in the same direction require no change in input so are nerfed
             if (catchCurrent.LastObject.HyperDash && lastHyperDash && !isDirectionChange)
-                movementAddition *= 0.7;
+                movementAddition *= 0.3;
 
             // Buzz slider fix
             if (isDirectionChange && lastIsDirectionChange && Math.Abs(distanceMoved) == Math.Abs(lastDistanceMoved) && Math.Abs(distanceMoved) <= HalfCatcherWidth)
