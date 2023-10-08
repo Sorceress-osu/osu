@@ -111,6 +111,7 @@ namespace osu.Game.Rulesets.Catch.Difficulty.Skills
             // Buzz slider fix
             if (isDirectionChange && lastIsDirectionChange && Math.Abs(distanceMoved) == Math.Abs(lastDistanceMoved) && Math.Abs(distanceMoved) <= HalfCatcherWidth)
             {
+                // The fix isn't applied to the first instance of a buzzslider being triggered so players are still rewarded for the initial difficulty of catching such a pattern
                 if (isBuzzslider)
                     movementAddition *= Math.Pow((Math.Min(catchCurrent.StrainTime, 120) / 120), 2);
                 else
