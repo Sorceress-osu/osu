@@ -33,6 +33,7 @@ namespace osu.Game.Rulesets.Catch.Difficulty.Skills
 
         private bool isDirectionChange;
         private bool lastIsDirectionChange;
+        private bool isBuzzslider;
         private bool lastHyperDash;
 
         private float? lastPlayerPosition;
@@ -109,7 +110,17 @@ namespace osu.Game.Rulesets.Catch.Difficulty.Skills
 
             // Buzz slider fix
             if (isDirectionChange && lastIsDirectionChange && Math.Abs(distanceMoved) == Math.Abs(lastDistanceMoved) && Math.Abs(distanceMoved) <= HalfCatcherWidth)
-                movementAddition *= Math.Pow((Math.Min(catchCurrent.StrainTime, 120) / 120), 2);
+            {
+                // The fix isn't applied to the first instance of a buzzslider being triggered so players are still rewarded for the initial difficulty of catching such a pattern
+                if (isBuzzslider)
+                    movementAddition *= Math.Pow((Math.Min(catchCurrent.StrainTime, 120) / 120), 2);
+                else
+                    isBuzzslider = true;
+            }
+            else
+            {
+                isBuzzslider = false;
+            }
 
             lastPlayerPosition = playerPosition;
             lastDistanceMoved = distanceMoved;
