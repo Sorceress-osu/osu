@@ -23,12 +23,19 @@ namespace osu.Game.Rulesets.Catch.Difficulty
 
         private float halfCatcherWidth;
 
+        private float adjustedCircleSize;
+
+        private float adjustedScale;
+
         public override int Version => 20220701;
 
         public CatchDifficultyCalculator(IRulesetInfo ruleset, IWorkingBeatmap beatmap)
             : base(ruleset, beatmap)
         {
         }
+
+        // Calculates CircleSize from catcher scale
+        public float InverseCalculateScale(float scale) => (5 * (1.0f - scale) / 0.7f) + 5;
 
         protected override DifficultyAttributes CreateDifficultyAttributes(IBeatmap beatmap, Mod[] mods, Skill[] skills, double clockRate)
         {
@@ -78,8 +85,25 @@ namespace osu.Game.Rulesets.Catch.Difficulty
         {
             halfCatcherWidth = Catcher.CalculateCatchWidth(beatmap.Difficulty) * 0.5f;
 
+            // Adjust CatcherWidth to take into account different catcher speeds
+            adjustedCircleSize = beatmap.Difficulty.CircleSize;
+
+            if (mods.Any(m => m is CatchModDoubleTime))
+            {
+                adjustedScale = Catcher.CalculateCatchWidth(beatmap.Difficulty);
+                adjustedScale /= 1.5f;
+                adjustedCircleSize = InverseCalculateScale(adjustedScale);
+            };
+
+            if (mods.Any(m => m is CatchModHalfTime))
+            {
+                adjustedScale = Catcher.CalculateCatchWidth(beatmap.Difficulty);
+                adjustedScale /= 0.75f;
+                adjustedCircleSize = InverseCalculateScale(adjustedScale);
+            };
+
             // For circle sizes above 5.5, reduce the catcher width further to simulate imperfect gameplay.
-            halfCatcherWidth *= 1 - (Math.Max(0, beatmap.Difficulty.CircleSize - 5.5f) * 0.0625f);
+            halfCatcherWidth *= 1 - (Math.Max(0, adjustedCircleSize - 5.5f) * 0.0625f);
 
             return new Skill[]
             {
