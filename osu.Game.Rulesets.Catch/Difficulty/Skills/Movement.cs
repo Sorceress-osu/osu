@@ -87,7 +87,7 @@ namespace osu.Game.Rulesets.Catch.Difficulty.Skills
             if (isDirectionChange)
             {
                 double bonusFactor = Math.Min(50, Math.Abs(distanceMoved)) / 50;
-                double antiflowFactor = Math.Max(Math.Min(70, Math.Abs(lastDistanceMoved)) / 70, 0.38);
+                double antiflowFactor = Math.Max(Math.Min(70, Math.Abs(lastDistanceMoved)) / 70, 0.1);
 
                 movementAddition += direction_change_bonus / lastWeightedSqrtStrain * bonusFactor * antiflowFactor * Math.Max(1 - Math.Pow(weightedStrainTime / 1000, 3), 0);
             }
