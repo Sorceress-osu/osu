@@ -21,6 +21,7 @@ So this proposal is very much still subject to change until it’s in a spot the
 - A blanket doubletime buff and halftime nerf, this applies to every map
 - A big buff to super speedy doubletime plays above AR 10
 - A fix for buzz sliders inflating SR, this applies to maps like [Hand Crushed](https://osu.ppy.sh/beatmapsets/1253992#fruits/3208604)
+- A nerf to [this pattern](https://cdn.discordapp.com/attachments/911607430113288232/1162784104127942716/image.png?ex=653d3215&is=652abd15&hm=c3f37a95fa05eb1a9e435c796be8fba4e48c63a6d57f8bdcf4774134b91c18e6&)
 - A nerf to same direction consecutive hyperdashes, they don’t require any change in input from the player and shouldn’t be worth so much
 - Changes to misses and combo scaling, you can expect to see a noticeable increase to the PP on your non full combo plays, a one miss will still hurt but not quite as bad
 - No Fail PP penalty reworked, a full combo with NF enabled will award full PP, sorry sandbaggers
