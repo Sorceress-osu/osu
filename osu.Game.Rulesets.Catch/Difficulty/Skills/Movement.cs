@@ -104,7 +104,7 @@ namespace osu.Game.Rulesets.Catch.Difficulty.Skills
             if (catchCurrent.LastObject.HyperDash)
                 playerPosition = catchCurrent.NormalizedPosition;
 
-            // Consecutive hyperdashes in the same direction require no change in input so are nerfed
+            // Consecutive hyperdashes in the same direction require no change in input so are heavily nerfed
             if (catchCurrent.LastObject.HyperDash && lastHyperDash && !isDirectionChange)
                 movementAddition *= 0.3;
 
