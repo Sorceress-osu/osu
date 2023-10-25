@@ -14,7 +14,7 @@ namespace osu.Game.Rulesets.Catch.Difficulty.Skills
         private const float absolute_player_positioning_error = 16f;
         private const float normalized_hitobject_radius = 41.0f;
 
-        private const double direction_change_bonus = 21.0;
+        private const double direction_change_bonus = 21.5;
         private const double base_distance_bonus = 12.5;
 
         private const double edge_dash_threshold = 20.0;
